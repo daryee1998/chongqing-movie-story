@@ -1601,15 +1601,21 @@
             100% { transform: rotate(90deg); }
         }
 
-        @media screen and (orientation: portrait) and (max-width: 768px) {
-            .rotate-device {
+        @media screen and (max-width: 768px) {
+            .rotate-device.portrait {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
             }
-            .container {
+            .rotate-device.landscape {
                 display: none;
+            }
+            .container.portrait {
+                display: none;
+            }
+            .container.landscape {
+                display: block;
             }
         }
     </style>
@@ -2841,12 +2847,20 @@
 
         // 添加横屏检测
         function checkOrientation() {
-            if (window.innerWidth <= 768 && window.orientation === 0) {
-                document.querySelector('.rotate-device').style.display = 'flex';
-                document.querySelector('.container').style.display = 'none';
+            const isPortrait = window.innerWidth <= 768 && (window.orientation === 0 || window.orientation === 180);
+            const rotateDevice = document.querySelector('.rotate-device');
+            const container = document.querySelector('.container');
+            
+            if (isPortrait) {
+                rotateDevice.classList.add('portrait');
+                rotateDevice.classList.remove('landscape');
+                container.classList.add('portrait');
+                container.classList.remove('landscape');
             } else {
-                document.querySelector('.rotate-device').style.display = 'none';
-                document.querySelector('.container').style.display = 'block';
+                rotateDevice.classList.add('landscape');
+                rotateDevice.classList.remove('portrait');
+                container.classList.add('landscape');
+                container.classList.remove('portrait');
             }
         }
 
