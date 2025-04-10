@@ -1432,6 +1432,31 @@
             .swipe-hint {
                 display: block;
             }
+            
+            .notebook-page {
+                position: relative;
+                overflow-x: hidden;
+            }
+            
+            .notebook-page::before,
+            .notebook-page::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                width: 20px;
+                height: 100%;
+                z-index: 10;
+            }
+            
+            .notebook-page::before {
+                left: 0;
+                background: linear-gradient(to right, rgba(0,0,0,0.1), transparent);
+            }
+            
+            .notebook-page::after {
+                right: 0;
+                background: linear-gradient(to left, rgba(0,0,0,0.1), transparent);
+            }
         }
 
         @media (min-width: 769px) {
@@ -1439,6 +1464,97 @@
                 display: none;
             }
         }
+
+        /* 添加触摸滑动功能 */
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const minSwipeDistance = 50; // 最小滑动距离
+        const edgeSwipeThreshold = 20; // 边缘滑动阈值
+
+        // 触摸事件监听器
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+        }, false);
+
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].clientX;
+            handleSwipe();
+        }, false);
+
+        // 处理滑动
+        function handleSwipe() {
+            const swipeDistance = touchEndX - touchStartX;
+            const windowWidth = window.innerWidth;
+            
+            // 检查是否在屏幕边缘开始滑动
+            const isEdgeSwipe = touchStartX < edgeSwipeThreshold || touchStartX > windowWidth - edgeSwipeThreshold;
+            
+            if (Math.abs(swipeDistance) > minSwipeDistance || isEdgeSwipe) {
+                if (swipeDistance > 0) {
+                    // 向右滑动，返回上一页
+                    if (currentPage === 2) {
+                        slideBack();
+                    }
+                } else {
+                    // 向左滑动，进入下一页
+                    if (currentPage === 1 && locationSelect.value && nameInput.value) {
+                        slidePage();
+                    }
+                }
+            }
+        }
+
+        // 显示滑动提示
+        function showSwipeHint() {
+            const swipeHint = document.querySelector('.swipe-hint');
+            swipeHint.classList.add('show');
+            setTimeout(() => {
+                swipeHint.classList.remove('show');
+            }, 3000);
+        }
+
+        // 在页面加载和切换时显示提示
+        document.addEventListener('DOMContentLoaded', showSwipeHint);
+        document.querySelector('.next-page-arrow').addEventListener('click', showSwipeHint);
+        document.querySelector('.back-page-arrow').addEventListener('click', showSwipeHint);
+
+        // 添加边缘滑动提示样式
+        const style = document.createElement('style');
+        style.textContent = `
+            @media (max-width: 768px) {
+                .notebook-page {
+                    position: relative;
+                    overflow-x: hidden;
+                }
+                
+                .notebook-page::before,
+                .notebook-page::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    width: 20px;
+                    height: 100%;
+                    z-index: 10;
+                }
+                
+                .notebook-page::before {
+                    left: 0;
+                    background: linear-gradient(to right, rgba(0,0,0,0.1), transparent);
+                }
+                
+                .notebook-page::after {
+                    right: 0;
+                    background: linear-gradient(to left, rgba(0,0,0,0.1), transparent);
+                }
+                
+                .swipe-hint {
+                    display: block;
+                    font-size: 12px;
+                    padding: 6px 12px;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </style>
 </head>
 
