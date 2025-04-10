@@ -2,22 +2,23 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.js",
-      "use": "@vercel/node"
+      "src": "chongqing.html",
+      "use": "@vercel/static"
     },
     {
-      "src": "chongqing.html",
+      "src": "assets/**",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "server.js"
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "chongqing.html"
+      "dest": "/chongqing.html"
     }
-  ]
+  ],
+  "outputDirectory": "."
 }
