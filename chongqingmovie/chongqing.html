@@ -11,9 +11,6 @@
     <link rel="preload" href="assets/fonts/huiwenmingchaoti.otf" as="font" type="font/otf" crossorigin>
     <link rel="preload" href="assets/fonts/superwild-nax0j.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="assets/fonts/lenyah-v4qye.otf" as="font" type="font/otf" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;700&family=ZCOOL+Addict&family=ZCOOL+KuaiLe&family=ZCOOL+KuHei&family=ZCOOL+QingKe+HuangYou&family=ZCOOL+XiaoWei&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
     <style>
         @font-face {
             font-family: 'FuLuLuxi';
@@ -225,8 +222,10 @@
 
         .video-background {
             position: fixed;
-            top: 0;
-            left: 0;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
             width: 100%;
             height: 100%;
             z-index: -1;
@@ -236,14 +235,9 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-        }
-
-        @media (max-width: 768px) {
-            .video-background {
-                background-size: 100% auto;
-                background-position: center top;
-                background-attachment: scroll;
-            }
+            background-color: #000;
+            animation: backgroundPulse 8s ease-in-out infinite;
+            filter: saturate(1.3) contrast(1.1) brightness(1.2);
         }
 
         .video-background::before {
@@ -1408,228 +1402,10 @@
             scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
         }
 
-        .story-output {
-            font-family: 'Noto Serif SC', serif;
-            line-height: 1.8;
-            margin: 20px 0;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            font-size: 1.1em;
-            letter-spacing: 0.5px;
-            white-space: pre-wrap;
-            position: relative;
-            z-index: 2;
-        }
-
-        .story-output p {
-            margin: 0 0 1em 0;
-            color: #ffffff;
-        }
-
-        .story-output p:last-child {
-            margin-bottom: 0;
-        }
-
-        .story-output .title {
-            font-family: 'Ma Shan Zheng', cursive;
-            font-size: 1.8em;
-            margin-bottom: 1em;
-            text-align: center;
-            color: #ffffff;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        }
-
-        .story-output .location {
-            font-family: 'ZCOOL XiaoWei', serif;
-            font-size: 1.2em;
-            margin-bottom: 1em;
-            text-align: center;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-        }
-
-        .story-output .content {
-            font-family: 'Noto Serif SC', serif;
-            line-height: 1.8;
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-        }
-
-        .story-output .english {
-            font-family: 'Noto Sans SC', sans-serif;
-            font-size: 0.9em;
-            color: #ffffff;
-            opacity: 0.9;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-        }
-
-        .story-output .chinese {
-            font-family: 'Noto Serif SC', serif;
-            font-size: 1.1em;
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-        }
-
-        .story-output .style {
-            font-family: 'ZCOOL KuaiLe', cursive;
-            font-size: 1.1em;
-            margin-top: 1em;
-            text-align: right;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-        }
-
-        .story-output .author {
-            font-family: 'Zhi Mang Xing', cursive;
-            font-size: 1.2em;
-            margin-top: 1em;
-            text-align: right;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-        }
-
-        .story-output .date {
-            font-family: 'ZCOOL Addict', cursive;
-            font-size: 1em;
-            margin-top: 0.5em;
-            text-align: right;
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-        }
-
-        .story-output .signature {
-            font-family: 'ZCOOL KuHei', sans-serif;
-            font-size: 1.1em;
-            margin-top: 1em;
-            text-align: right;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-        }
-
-        .story-output .location-name {
-            font-family: 'ZCOOL XiaoWei', serif;
-            font-size: 1.2em;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-        }
-
-        .story-output .character-name {
-            font-family: 'ZCOOL QingKe HuangYou', cursive;
-            font-size: 1.2em;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-        }
-
-        .story-output .story-style {
-            font-family: 'ZCOOL KuHei', sans-serif;
-            font-size: 1.1em;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-        }
-
-        .story-output .story-content {
-            font-family: 'Noto Serif SC', serif;
-            line-height: 1.8;
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-        }
-
-        .story-output .story-english {
-            font-family: 'Noto Sans SC', sans-serif;
-            font-size: 0.9em;
-            color: #ffffff;
-            opacity: 0.9;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-        }
-
-        .story-output .story-chinese {
-            font-family: 'Noto Serif SC', serif;
-            font-size: 1.1em;
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-        }
-
-        .story-output .story-author {
-            font-family: 'Zhi Mang Xing', cursive;
-            font-size: 1.2em;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-        }
-
-        .story-output .story-date {
-            font-family: 'ZCOOL Addict', cursive;
-            font-size: 1em;
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-        }
-
-        .story-output .story-signature {
-            font-family: 'ZCOOL KuHei', sans-serif;
-            font-size: 1.1em;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-        }
-
-        /* 添加横屏提示样式 */
-        .rotate-device {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 9999;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .rotate-device .arrow {
-            width: 60px;
-            height: 60px;
-            margin: 20px auto;
-            display: block;
-            animation: rotate 2s infinite;
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(90deg); }
-        }
-
-        @media screen and (max-width: 768px) {
-            .rotate-device.portrait {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
-            .rotate-device.landscape {
-                display: none;
-            }
-            .container.portrait {
-                display: none;
-            }
-            .container.landscape {
-                display: block;
-            }
-        }
     </style>
 </head>
 
 <body>
-    <!-- 添加横屏提示 -->
-    <div class="rotate-device">
-        <svg class="arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L4 12H9V22H15V12H20L12 2Z" fill="#FFFFFF"/>
-        </svg>
-        <p>请将设备横置以获得最佳体验</p>
-        <p>Please rotate your device to landscape mode</p>
-    </div>
     <div class="video-background"></div>
     <!-- 如果背景图片无法加载，显示静态图片作为后备 -->
     <img src="https://i.guancha.cn/bbs/2021/01/25/20210125145949466.jpeg" alt="Background Image" style="display: none;">
@@ -2844,46 +2620,6 @@
                 saveAsImageBtn.addEventListener('click', saveStoryAsImage);
             }
         });
-
-        // 添加横屏检测
-        function checkOrientation() {
-            // 使用更兼容的方式检测方向
-            const isPortrait = window.matchMedia("(orientation: portrait)").matches;
-            const isMobile = window.innerWidth <= 768;
-            const rotateDevice = document.querySelector('.rotate-device');
-            const container = document.querySelector('.container');
-            
-            if (isPortrait && isMobile) {
-                rotateDevice.classList.add('portrait');
-                rotateDevice.classList.remove('landscape');
-                container.classList.add('portrait');
-                container.classList.remove('landscape');
-            } else {
-                rotateDevice.classList.add('landscape');
-                rotateDevice.classList.remove('portrait');
-                container.classList.add('landscape');
-                container.classList.remove('portrait');
-            }
-        }
-
-        // 监听屏幕旋转事件
-        window.addEventListener('orientationchange', () => {
-            // 添加一个小延迟以确保方向变化已完成
-            setTimeout(checkOrientation, 300);
-        });
-        
-        // 监听窗口大小变化
-        window.addEventListener('resize', checkOrientation);
-        
-        // 页面加载时检查
-        document.addEventListener('DOMContentLoaded', checkOrientation);
-
-        // 添加 iOS 特定的方向变化监听
-        if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-            window.addEventListener('resize', () => {
-                setTimeout(checkOrientation, 300);
-            });
-        }
     </script>
 
 </body>
