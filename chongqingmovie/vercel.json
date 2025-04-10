@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "chongqing.html",
+      "src": "*.html",
       "use": "@vercel/static"
     },
     {
@@ -17,7 +17,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/chongqing.html"
+      "dest": "/$1"
     }
   ],
   "outputDirectory": "."
