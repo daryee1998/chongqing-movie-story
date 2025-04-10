@@ -11,6 +11,7 @@
             src: url('assets/fonts/fulu-luxi-2.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
+            font-display: swap;
         }
 
         @font-face {
@@ -79,7 +80,7 @@
             height: 100%;
             z-index: -1;
             background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-                url('assets/images/background.jpg');
+                url('/assets/images/background.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -1457,7 +1458,60 @@
 
         // Function triggered when location dropdown changes
         function handleLocationChange() {
+            // 立即更新内容，不等待
             checkInputsAndUpdateContent();
+            
+            // 确保图片立即加载
+            const selectedLocation = locationSelect.value;
+            if (selectedLocation) {
+                const locationData = locations.find(loc => loc.name === selectedLocation);
+                if (locationData) {
+                    buildingImg.src = locationData.image;
+                    buildingImg.onload = function() {
+                        // 图片加载完成后显示
+                        contentDiv.style.display = 'flex';
+                    };
+                }
+                
+                // 查找对应的电影海报
+                const locationMovieMap = {
+                    '千厮门大桥': '坚如磐石',
+                    '弹子石码头': '秘岸',
+                    '皇冠大扶梯': '少年的你',
+                    '南滨路': '少年的你',
+                    '李子坝': '铤而走险',
+                    '老居民楼': '好奇害死猫',
+                    '长江索道': '疯狂的石头',
+                    '来福士': '受益人',
+                    '白象居': '刺杀小说家',
+                    '朝天门码头': '日照重庆'
+                };
+                
+                const movieName = locationMovieMap[selectedLocation];
+                const movieData = movieName ? movies.find(movie => movie.name === movieName) : null;
+                
+                if (movieData) {
+                    if (Array.isArray(movieData.image)) {
+                        if (movieName === '少年的你') {
+                            if (selectedLocation === '皇冠大扶梯') {
+                                posterImg.src = movieData.image[0];
+                            } else if (selectedLocation === '南滨路') {
+                                posterImg.src = movieData.image[1];
+                            }
+                        } else {
+                            posterImg.src = movieData.image[0];
+                        }
+                    } else {
+                        posterImg.src = movieData.image;
+                    }
+                    posterImg.onload = function() {
+                        // 图片加载完成后显示
+                        contentDiv.style.display = 'flex';
+                    };
+                } else {
+                    posterImg.src = "assets/images/重庆夜景.jpg";
+                }
+            }
         }
 
         // Function triggered when name input changes
