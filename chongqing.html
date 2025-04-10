@@ -1407,57 +1407,6 @@
             scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
         }
 
-        /* 添加触摸滑动功能 */
-        let touchStartX = 0;
-        let touchEndX = 0;
-        const minSwipeDistance = 50; // 最小滑动距离
-
-        document.addEventListener('touchstart', function(e) {
-            touchStartX = e.touches[0].clientX;
-        }, false);
-
-        document.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].clientX;
-            handleSwipe();
-        }, false);
-
-        function handleSwipe() {
-            const swipeDistance = touchEndX - touchStartX;
-            
-            if (Math.abs(swipeDistance) > minSwipeDistance) {
-                if (swipeDistance > 0) {
-                    // 向右滑动，返回上一页
-                    if (currentPage === 2) {
-                        slideBack();
-                    }
-                } else {
-                    // 向左滑动，进入下一页
-                    if (currentPage === 1 && locationSelect.value && nameInput.value) {
-                        slidePage();
-                    }
-                }
-            }
-        }
-
-        // 添加触摸滑动提示
-        const swipeHint = document.createElement('div');
-        swipeHint.className = 'swipe-hint';
-        swipeHint.innerHTML = '<span>← 左右滑动切换页面 →</span>';
-        document.body.appendChild(swipeHint);
-
-        // 显示滑动提示
-        function showSwipeHint() {
-            swipeHint.classList.add('show');
-            setTimeout(() => {
-                swipeHint.classList.remove('show');
-            }, 3000);
-        }
-
-        // 在页面加载和切换时显示提示
-        document.addEventListener('DOMContentLoaded', showSwipeHint);
-        document.querySelector('.slide-next').addEventListener('click', showSwipeHint);
-        document.querySelector('.slide-back').addEventListener('click', showSwipeHint);
-
         /* 滑动提示样式 */
         .swipe-hint {
             position: fixed;
