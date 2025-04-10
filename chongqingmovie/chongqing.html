@@ -1588,9 +1588,9 @@
             padding: 20px;
         }
 
-        .rotate-device img {
-            width: 50px;
-            height: 50px;
+        .rotate-device .arrow {
+            width: 60px;
+            height: 60px;
             margin: 20px auto;
             display: block;
             animation: rotate 2s infinite;
@@ -1618,7 +1618,9 @@
 <body>
     <!-- 添加横屏提示 -->
     <div class="rotate-device">
-        <img src="assets/images/rotate.png" alt="Rotate Device">
+        <svg class="arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L4 12H9V22H15V12H20L12 2Z" fill="#FFFFFF"/>
+        </svg>
         <p>请将设备横置以获得最佳体验</p>
         <p>Please rotate your device to landscape mode</p>
     </div>
@@ -2836,6 +2838,24 @@
                 saveAsImageBtn.addEventListener('click', saveStoryAsImage);
             }
         });
+
+        // 添加横屏检测
+        function checkOrientation() {
+            if (window.innerWidth <= 768 && window.orientation === 0) {
+                document.querySelector('.rotate-device').style.display = 'flex';
+                document.querySelector('.container').style.display = 'none';
+            } else {
+                document.querySelector('.rotate-device').style.display = 'none';
+                document.querySelector('.container').style.display = 'block';
+            }
+        }
+
+        // 监听屏幕旋转事件
+        window.addEventListener('orientationchange', checkOrientation);
+        window.addEventListener('resize', checkOrientation);
+        
+        // 页面加载时检查
+        document.addEventListener('DOMContentLoaded', checkOrientation);
     </script>
 
 </body>
