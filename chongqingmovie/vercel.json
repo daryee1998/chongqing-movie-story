@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "*.html",
+      "src": "chongqing.html",
       "use": "@vercel/static"
     },
     {
@@ -14,9 +14,6 @@
     {
       "src": "/assets/(.*)",
       "dest": "/assets/$1"
-    },
-    {
-      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
