@@ -1401,7 +1401,6 @@
             scrollbar-width: thin;
             scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
         }
-
     </style>
 </head>
 
@@ -2620,6 +2619,15 @@
                 saveAsImageBtn.addEventListener('click', saveStoryAsImage);
             }
         });
+
+        // 移除横屏检测相关代码
+        function checkOrientation() {
+            return;
+        }
+
+        // 移除事件监听
+        window.removeEventListener('orientationchange', checkOrientation);
+        window.removeEventListener('resize', checkOrientation);
     </script>
 
 </body>
