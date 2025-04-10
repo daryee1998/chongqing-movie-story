@@ -2847,7 +2847,7 @@
 
         // 添加横屏检测
         function checkOrientation() {
-            const isPortrait = window.innerWidth <= 768 && (window.orientation === 0 || window.orientation === 180);
+            const isPortrait = window.innerWidth <= 768 && window.innerHeight > window.innerWidth;
             const rotateDevice = document.querySelector('.rotate-device');
             const container = document.querySelector('.container');
             
@@ -2865,7 +2865,12 @@
         }
 
         // 监听屏幕旋转事件
-        window.addEventListener('orientationchange', checkOrientation);
+        window.addEventListener('orientationchange', () => {
+            // 添加一个小延迟以确保方向变化已完成
+            setTimeout(checkOrientation, 100);
+        });
+        
+        // 监听窗口大小变化
         window.addEventListener('resize', checkOrientation);
         
         // 页面加载时检查
