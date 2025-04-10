@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "chongqingmovie/**",
+      "src": "chongqingmovie/chongqing.html",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/chongqingmovie/$1"
+      "dest": "/chongqingmovie/chongqing.html"
     }
   ]
 } 
