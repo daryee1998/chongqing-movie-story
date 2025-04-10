@@ -225,10 +225,8 @@
 
         .video-background {
             position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
@@ -238,9 +236,14 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-color: #000;
-            animation: backgroundPulse 8s ease-in-out infinite;
-            filter: saturate(1.3) contrast(1.1) brightness(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .video-background {
+                background-size: 100% auto;
+                background-position: center top;
+                background-attachment: scroll;
+            }
         }
 
         .video-background::before {
