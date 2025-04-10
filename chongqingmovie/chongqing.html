@@ -1572,10 +1572,56 @@
             color: #ffffff;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
         }
+
+        /* 添加横屏提示样式 */
+        .rotate-device {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .rotate-device img {
+            width: 50px;
+            height: 50px;
+            margin: 20px auto;
+            display: block;
+            animation: rotate 2s infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(90deg); }
+        }
+
+        @media screen and (orientation: portrait) and (max-width: 768px) {
+            .rotate-device {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .container {
+                display: none;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <!-- 添加横屏提示 -->
+    <div class="rotate-device">
+        <img src="assets/images/rotate.png" alt="Rotate Device">
+        <p>请将设备横置以获得最佳体验</p>
+        <p>Please rotate your device to landscape mode</p>
+    </div>
     <div class="video-background"></div>
     <!-- 如果背景图片无法加载，显示静态图片作为后备 -->
     <img src="https://i.guancha.cn/bbs/2021/01/25/20210125145949466.jpeg" alt="Background Image" style="display: none;">
