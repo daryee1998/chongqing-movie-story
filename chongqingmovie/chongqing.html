@@ -2847,11 +2847,13 @@
 
         // 添加横屏检测
         function checkOrientation() {
-            const isPortrait = window.innerWidth <= 768 && window.innerHeight > window.innerWidth;
+            // 使用更兼容的方式检测方向
+            const isPortrait = window.matchMedia("(orientation: portrait)").matches;
+            const isMobile = window.innerWidth <= 768;
             const rotateDevice = document.querySelector('.rotate-device');
             const container = document.querySelector('.container');
             
-            if (isPortrait) {
+            if (isPortrait && isMobile) {
                 rotateDevice.classList.add('portrait');
                 rotateDevice.classList.remove('landscape');
                 container.classList.add('portrait');
@@ -2867,7 +2869,7 @@
         // 监听屏幕旋转事件
         window.addEventListener('orientationchange', () => {
             // 添加一个小延迟以确保方向变化已完成
-            setTimeout(checkOrientation, 100);
+            setTimeout(checkOrientation, 300);
         });
         
         // 监听窗口大小变化
@@ -2875,6 +2877,13 @@
         
         // 页面加载时检查
         document.addEventListener('DOMContentLoaded', checkOrientation);
+
+        // 添加 iOS 特定的方向变化监听
+        if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+            window.addEventListener('resize', () => {
+                setTimeout(checkOrientation, 300);
+            });
+        }
     </script>
 
 </body>
